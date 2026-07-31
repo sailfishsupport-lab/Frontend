@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SAILFISH | Create Account</title>
+<script src="api.js"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,Arial,sans-serif;}
+body{min-height:100vh;background:#f5f8fc;color:#101828;display:flex;align-items:center;justify-content:center;padding:10px;}
+.authCard{width:460px;max-width:100%;overflow:hidden;border-radius:24px;background:white;box-shadow:0 20px 40px rgba(5,30,60,.08);}
+.formArea{display:flex;align-items:center;justify-content:center;padding:35px 30px;}
+.box{width:100%;}
+.brand{font-size:22px;font-weight:800;letter-spacing:-1px;color:#101828;margin-bottom:20px;}
+.brand span{color:#3c94ff;}
+.box h1{font-size:28px;letter-spacing:-1px;}
+.sub{margin-top:6px;color:#667085;font-size:12px;line-height:1.5;}
+.group{margin-top:16px;}
+.group label{display:block;margin-bottom:6px;font-size:11px;font-weight:700;}
+.input{width:100%;height:48px;padding:0 14px;border:1px solid #e4e7ec;outline:none;border-radius:12px;background:white;font-size:13px;transition:.2s;}
+.input:focus{border-color:#1677ff;box-shadow:0 0 0 4px rgba(22,119,255,.08);}
+.password{width:100%;height:48px;display:flex;align-items:center;border:1px solid #e4e7ec;border-radius:12px;background:white;transition:.2s;}
+.password:focus-within{border-color:#1677ff;box-shadow:0 0 0 4px rgba(22,119,255,.08);}
+.password input{flex:1;min-width:0;height:100%;padding:0 14px;border:0;outline:0;font-size:13px;}
+.password button{border:0;background:none;padding:10px 12px;color:#1677ff;font-size:10px;font-weight:800;cursor:pointer;}
+.btn{width:100%;height:48px;margin-top:20px;border:0;border-radius:12px;color:white;background:linear-gradient(135deg,#1677ff,#0755c9);font-size:13px;font-weight:700;box-shadow:0 8px 20px rgba(22,119,255,.2);transition:.2s;cursor:pointer;}
+.btn:hover{transform:translateY(-1px);box-shadow:0 12px 24px rgba(22,119,255,0.28);}
+.btn:disabled{opacity:.55;cursor:not-allowed;transform:none;}
+.link{border:0;background:none;color:#1677ff;font-size:11px;font-weight:700;cursor:pointer;text-decoration:none;}
+.msg{min-height:18px;margin-top:8px;text-align:center;font-size:11px;font-weight:600;}
+.ok{color:#12b76a;}
+.err{color:#e5484d;}
+.bottom{margin-top:20px;text-align:center;color:#667085;font-size:11px;}
+@media(max-width:480px){
+    body{padding:0;}
+    .authCard{border-radius:0;min-height:100vh;box-shadow:none;display:flex;align-items:center;}
+    .formArea{padding:20px;width:100%;}
+}
+</style>
+</head>
+<body>
+
+<div class="authCard">
+    <div class="formArea">
+        <div class="box">
+            <div class="brand">SAIL<span>FISH</span></div>
+            <h1>Create account</h1>
+            <p class="sub">Enter your details to create your account.</p>
+            <form id="signupForm">
+                <div class="group">
+                    <label>Gmail / Email</label>
+                    <input class="input" id="signupEmail" type="email" placeholder="Enter your Gmail" autocomplete="email" required>
+                </div>
+                <div class="group">
+                    <label>Password</label>
+                    <div class="password">
+                        <input id="signupPassword" type="password" placeholder="Create password" autocomplete="new-password" required>
+                        <button type="button" id="togglePassword">SHOW</button>
+                    </div>
+                </div>
+                <div class="group">
+                    <label>Confirm Password</label>
+                    <div class="password">
+                        <input id="signupConfirm" type="password" placeholder="Confirm password" autocomplete="new-password" required>
+                        <button type="button" id="toggleConfirm">SHOW</button>
+                    </div>
+                </div>
+                <button class="btn" id="signupBtn" type="submit">Create Account</button>
+                <div class="msg" id="signupMsg"></div>
+            </form>
+            <div class="bottom">Already have an account? <a class="link" href="login.html">Login</a></div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.getElementById("togglePassword").addEventListener("click", function(){
+    const input = document.getElementById("signupPassword");
+    if(input.type === "password"){
+        input.type = "text";
+        this.textContent = "HIDE";
+    }else{
+        input.type = "password";
+        this.textContent = "SHOW";
+    }
+});
+
+document.getElementById("toggleConfirm").addEventListener("click", function(){
+    const input = document.getElementById("signupConfirm");
+    if(input.type === "password"){
+        input.type = "text";
+        this.textContent = "HIDE";
+    }else{
+        input.type = "password";
+        this.textContent = "SHOW";
+    }
+});
+
+document.getElementById("signupForm").addEventListener("submit", async function(event){
+    event.preventDefault();
+    const email = document.getElementById("signupEmail").value.trim();
+    const password = document.getElementById("signupPassword").value;
+    const confirmPassword = document.getElementById("signupConfirm").value;
+    const msg = document.getElementById("signupMsg");
+    
+    if(!email){
+        msg.textContent = "Please enter your Gmail.";
+        msg.className = "msg err";
+        return;
+    }
+    if(password.length < 6){
+        msg.textContent = "Password must be at least 6 characters.";
+        msg.className = "msg err";
+        return;
+    }
+    if(password !== confirmPassword){
+        msg.textContent = "Password and Confirm Password do not match.";
+        msg.className = "msg err";
+        return;
+    }
+    
+    const btn = document.getElementById("signupBtn");
+    btn.disabled = true;
+    btn.textContent = "Creating account...";
+    msg.textContent = "";
+    
+    try{
+        if(!window.SAILFISH_API || typeof SAILFISH_API.signup !== "function"){
+            throw new Error("api.js is not loaded properly.");
+        }
+        await SAILFISH_API.signup({ email: email, password: password });
+        localStorage.setItem("sailfish_signup_email", email);
+        msg.textContent = "Account created. Sending OTP...";
+        msg.className = "msg ok";
+        
+        try{ await SAILFISH_API.sendOTP(email); }catch(otpError){ console.warn("OTP error:", otpError); }
+        setTimeout(function(){ window.location.href = "otp.html"; }, 600);
+    }catch(error){
+        msg.textContent = error.message || "Could not create account.";
+        msg.className = "msg err";
+    }finally{
+        btn.disabled = false;
+        btn.textContent = "Create Account";
+    }
+});
+</script>
+</body>
+</html>

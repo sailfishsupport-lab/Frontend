@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAILFISH | Forgot Password</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #ffffff;
+            color: #000000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .container {
+            width: 100%;
+            max-width: 400px;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: 900;
+            letter-spacing: -0.5px;
+            margin-bottom: 24px;
+        }
+        .logo span {
+            color: #0066ff;
+        }
+        h2 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+        .subtitle {
+            color: #666666;
+            font-size: 14px;
+            margin-bottom: 32px;
+        }
+        .input-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 15px;
+            box-sizing: border-box;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        input:focus {
+            border-color: #0066ff;
+        }
+        button.submit-btn {
+            width: 100%;
+            padding: 14px;
+            background-color: #0066ff;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 8px;
+            box-shadow: 0 4px 12px rgba(0, 102, 255, 0.3);
+            transition: background-color 0.2s;
+        }
+        button.submit-btn:hover {
+            background-color: #0052cc;
+        }
+        .back-link {
+            text-align: center;
+            margin-top: 24px;
+            font-size: 14px;
+            color: #666666;
+        }
+        .back-link a {
+            color: #0066ff;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">SAIL<span>FISH</span></div>
+        <h2>Forgot password</h2>
+        <div class="subtitle">Enter your email to receive a password reset OTP.</div>
+        
+        <form id="forgotForm">
+            <div class="input-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="Enter your email" required>
+            </div>
+            
+            <button type="submit" class="submit-btn">Send OTP →</button>
+        </form>
+
+        <div class="back-link">
+            Remember your password? <a href="login.html">Log in</a>
+        </div>
+    </div>
+
+    <script src="api.js"></script>
+    <script>
+        document.getElementById('forgotForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            
+            const result = await window.SAILFISH_API.sendOTP(email);
+            alert(result.message);
+            
+            // Keval forgot password ke kaam ke liye type set kiya gaya hai
+            localStorage.setItem('resetEmail', email);
+            localStorage.setItem('otpType', 'forgot');
+            
+            window.location.href = "otp.html";
+        });
+    </script>
+</body>
+</html>
