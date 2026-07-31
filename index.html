@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SAILFISH | Welcome</title>
+<script src="api.js"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Inter,Arial,sans-serif;
+}
+body{
+    min-height:100vh;
+    background:#03101f;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:white;
+}
+#splash{
+    position:fixed;
+    inset:0;
+    z-index:9999;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    background:
+        radial-gradient(
+            circle at 20% 20%,
+            rgba(25,120,255,.35),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 80% 80%,
+            rgba(0,200,255,.25),
+            transparent 30%
+        ),
+        #03101f;
+    transition:.7s;
+}
+#splash.hide{
+    opacity:0;
+    visibility:hidden;
+}
+.splashLogo{
+    width:95px;
+    height:95px;
+    margin:auto;
+    border-radius:28px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(
+        145deg,
+        #1683ff,
+        #0755c9
+    );
+    font-size:50px;
+    font-weight:800;
+    box-shadow:
+        0 0 45px rgba(22,119,255,.5),
+        0 20px 60px rgba(0,0,0,.3);
+}
+.splashTitle{
+    margin-top:22px;
+    font-size:62px;
+    font-weight:800;
+    letter-spacing:-5px;
+}
+.splashTitle span{
+    color:#3c94ff;
+}
+.splashSub{
+    margin-top:10px;
+    font-size:17px;
+    font-weight:600;
+}
+.splashTag{
+    margin-top:8px;
+    color:rgba(255,255,255,.55);
+    font-size:12px;
+}
+.loader{
+    width:190px;
+    height:3px;
+    margin:27px auto;
+    overflow:hidden;
+    border-radius:20px;
+    background:rgba(255,255,255,.15);
+}
+.loader span{
+    display:block;
+    width:0;
+    height:100%;
+    background:#2585ff;
+    animation:loading 2.3s ease forwards;
+}
+@keyframes loading{
+    to{
+        width:100%;
+    }
+}
+@media(max-width:430px){
+    .splashTitle{
+        font-size:48px;
+    }
+}
+</style>
+</head>
+<body>
+
+<section id="splash">
+    <div>
+        <div class="splashLogo">〰</div>
+        <div class="splashTitle">SAIL<span>FISH</span></div>
+        <div class="splashSub">Welcome to SAILFISH</div>
+        <div class="splashTag">Your City. Your Services. One App.</div>
+        <div class="loader"><span></span></div>
+    </div>
+</section>
+
+<script>
+setTimeout(function(){
+    const splash = document.getElementById("splash");
+    splash.classList.add("hide");
+    
+    // Check if token exists in localStorage
+    const token = localStorage.getItem("sailfish_token");
+    if(token){
+        // Redirect to dashboard if logged in
+        window.location.href = "dashboard/home.html";
+    }else{
+        // Redirect to login page if not logged in
+        window.location.href = "login.html";
+    }
+}, 2400);
+</script>
+</body>
+  </html>
+  
