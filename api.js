@@ -1,4 +1,4 @@
-const API_BASE_URL = 'https://backend-23-eoat.onrender.com';
+const API_BASE_URL = 'https://backend-23-eoat.onrender.com/api';
 
 async function signup(email, password) {
     try {
