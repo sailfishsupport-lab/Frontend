@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SAILFISH | Login</title>
+<script src="api.js"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,Arial,sans-serif;}
+body{min-height:100vh;background:#f5f8fc;color:#101828;display:flex;align-items:center;justify-content:center;padding:10px;}
+.authCard{width:1100px;max-width:100%;display:grid;grid-template-columns:1fr 1fr;overflow:hidden;border-radius:24px;background:white;box-shadow:0 20px 40px rgba(5,30,60,.08);}
+.side{position:relative;padding:40px;display:flex;flex-direction:column;justify-content:space-between;color:white;overflow:hidden;background:radial-gradient(circle at 85% 15%,rgba(30,130,255,.8),transparent 35%),linear-gradient(145deg,#061426,#092d53);}
+.side::after{content:"";position:absolute;width:350px;height:350px;right:-180px;bottom:-180px;border:1px solid rgba(255,255,255,.08);border-radius:50%;}
+.brand{font-size:22px;font-weight:800;letter-spacing:-1px;}
+.brand span{color:#3c94ff;}
+.sideContent{position:relative;z-index:2;}
+.eyebrow{color:#55a5ff;font-size:10px;font-weight:800;letter-spacing:2px;}
+.side h2{margin-top:14px;font-size:38px;line-height:1.1;letter-spacing:-2px;}
+.side h2 strong{display:block;color:#4c9cff;}
+.side p{max-width:400px;margin-top:18px;color:rgba(255,255,255,.62);font-size:13px;line-height:1.6;}
+.features{position:relative;z-index:2;color:rgba(255,255,255,.55);font-size:10px;font-weight:700;letter-spacing:1px;}
+.formArea{display:flex;align-items:center;justify-content:center;padding:25px 20px;}
+.box{width:100%;max-width:380px;}
+.box h1{font-size:28px;letter-spacing:-1px;}
+.sub{margin-top:6px;color:#667085;font-size:12px;line-height:1.5;}
+.group{margin-top:16px;}
+.group label{display:block;margin-bottom:6px;font-size:11px;font-weight:700;}
+.input{width:100%;height:48px;padding:0 14px;border:1px solid #e4e7ec;outline:none;border-radius:12px;background:white;font-size:13px;transition:.2s;}
+.input:focus{border-color:#1677ff;box-shadow:0 0 0 4px rgba(22,119,255,.08);}
+.password{width:100%;height:48px;display:flex;align-items:center;border:1px solid #e4e7ec;border-radius:12px;background:white;transition:.2s;}
+.password:focus-within{border-color:#1677ff;box-shadow:0 0 0 4px rgba(22,119,255,.08);}
+.password input{flex:1;min-width:0;height:100%;padding:0 14px;border:0;outline:0;font-size:13px;}
+.password button{border:0;background:none;padding:10px 12px;color:#1677ff;font-size:10px;font-weight:800;cursor:pointer;}
+.btn{width:100%;height:48px;margin-top:18px;border:0;border-radius:12px;color:white;background:linear-gradient(135deg,#1677ff,#0755c9);font-size:13px;font-weight:700;box-shadow:0 8px 20px rgba(22,119,255,.2);transition:.2s;cursor:pointer;}
+.btn:hover{transform:translateY(-1px);box-shadow:0 12px 24px rgba(22,119,255,0.28);}
+.btn:disabled{opacity:.55;cursor:not-allowed;transform:none;}
+.row{display:flex;justify-content:space-between;align-items:center;margin-top:14px;font-size:11px;color:#667085;}
+.row label{display:flex;align-items:center;gap:6px;}
+.link{border:0;background:none;color:#1677ff;font-size:11px;font-weight:700;cursor:pointer;text-decoration:none;}
+.msg{min-height:18px;margin-top:8px;text-align:center;font-size:11px;font-weight:600;}
+.ok{color:#12b76a;}
+.err{color:#e5484d;}
+.divider{display:flex;align-items:center;gap:10px;margin:20px 0;color:#98a2b3;font-size:9px;font-weight:700;}
+.divider::before,.divider::after{content:"";flex:1;height:1px;background:#eaecf0;}
+.google{width:100%;height:48px;border:1px solid #e4e7ec;border-radius:12px;background:white;color:#344054;font-size:12px;font-weight:600;cursor:pointer;}
+.google:hover{background:#f9fafb;}
+.bottom{margin-top:18px;text-align:center;color:#667085;font-size:11px;}
+@media(max-width:800px){
+    body{padding:0;}
+    .authCard{grid-template-columns:1fr;border-radius:0;min-height:100vh;box-shadow:none;}
+    .side{display:none;}
+    .formArea{padding:30px 16px;align-items:flex-start;}
+    .box{max-width:100%;}
+}
+</style>
+</head>
+<body>
+
+<div class="authCard">
+    <div class="side">
+        <div class="brand">SAIL<span>FISH</span></div>
+        <div class="sideContent">
+            <div class="eyebrow">WELCOME BACK</div>
+            <h2>Everything you need, <strong>right at your door.</strong></h2>
+            <p>Order products, book trusted home services and manage everything from one simple platform.</p>
+        </div>
+        <div class="features">FAST &nbsp; • &nbsp; RELIABLE &nbsp; • &nbsp; LOCAL</div>
+    </div>
+    <div class="formArea">
+        <div class="box">
+            <div class="brand" style="color:#101828;margin-bottom:20px;">SAIL<span>FISH</span></div>
+            <h1>Welcome into login</h1>
+            <p class="sub">Login to continue to your SAILFISH account.</p>
+            <form id="loginForm">
+                <div class="group">
+                    <label>Email</label>
+                    <input class="input" id="loginEmail" type="email" placeholder="Enter your email" autocomplete="username" required>
+                </div>
+                <div class="group">
+                    <label>Password</label>
+                    <div class="password">
+                        <input id="loginPassword" type="password" placeholder="Enter your password" autocomplete="current-password" required>
+                        <button type="button" id="togglePassword">SHOW</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <label><input type="checkbox" id="remember"> Remember me</label>
+                    <a class="link" href="forgot.html">Forgot password?</a>
+                </div>
+                <button class="btn" id="loginBtn" type="submit">Login →</button>
+                <div class="msg" id="loginMsg"></div>
+            </form>
+            <div class="divider">OR</div>
+            <button class="google" type="button" id="googleBtn">G &nbsp; Continue with Google</button>
+            <div class="bottom">Don't have an account? <a class="link" href="signup.html">Create new account</a></div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.getElementById("togglePassword").addEventListener("click", function(){
+    const input = document.getElementById("loginPassword");
+    if(input.type === "password"){
+        input.type = "text";
+        this.textContent = "HIDE";
+    }else{
+        input.type = "password";
+        this.textContent = "SHOW";
+    }
+});
+
+function getTokenFromLogin(response){
+    if(response && typeof response === "object"){
+        return response.token || response.accessToken || response.jwt || null;
+    }
+    if(typeof response === "string"){
+        const match = response.match(/Token:\s*(.+)$/i);
+        if(match){ return match[1].trim(); }
+    }
+    return null;
+}
+
+document.getElementById("loginForm").addEventListener("submit", async function(event){
+    event.preventDefault();
+    const email = document.getElementById("loginEmail").value.trim();
+    const password = document.getElementById("loginPassword").value;
+    const msg = document.getElementById("loginMsg");
+    
+    if(!email || !password){
+        msg.textContent = "Please fill in all fields.";
+        msg.className = "msg err";
+        return;
+    }
+    
+    const btn = document.getElementById("loginBtn");
+    btn.disabled = true;
+    btn.textContent = "Logging in...";
+    msg.textContent = "";
+    
+    try{
+        if(!window.SAILFISH_API || typeof SAILFISH_API.login !== "function"){
+            throw new Error("api.js is not loaded properly.");
+        }
+        const response = await SAILFISH_API.login(email, password);
+        const token = getTokenFromLogin(response);
+        if(!token){ throw new Error("Login failed: Backend did not return a valid token."); }
+        SAILFISH_API.saveSession(token, email);
+        msg.textContent = "Login successful.";
+        msg.className = "msg ok";
+        
+        setTimeout(function(){
+            window.location.href = "dashboard/home.html";
+        }, 800);
+    }catch(error){
+        msg.textContent = error.message || "Login failed.";
+        msg.className = "msg err";
+    }finally{
+        btn.disabled = false;
+        btn.textContent = "Login →";
+    }
+});
+
+document.getElementById("googleBtn").addEventListener("click", function(){
+    alert("Please configure Google OAuth endpoint in your backend for Google Login.");
+});
+</script>
+</body>
+                  </html>
