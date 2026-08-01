@@ -76,7 +76,8 @@
             msg.className = "";
 
             try {
-                const response = await fetch('/api/signup', {
+                const response = await fetch('https://sailfish-backend-app.onrender.com/api/signup', {
+                
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
