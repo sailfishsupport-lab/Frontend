@@ -145,7 +145,7 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
         const response = await SAILFISH_API.login(email, password);
         const token = getTokenFromLogin(response);
         if(!token){ throw new Error("Login failed: Backend did not return a valid token."); }
-        SAILFISH_API.saveSession(token, email);
+        localStorage.setItem('token', token);
         msg.textContent = "Login successful.";
         msg.className = "msg ok";
         
