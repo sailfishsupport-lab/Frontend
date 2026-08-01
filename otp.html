@@ -154,7 +154,7 @@ window.location.href = `https://wa.me/${whatsappNumber}?text=${encodeURIComponen
             const result = await window.SAILFISH_API.verifyOTP(userEmail, otp);
             alert(result.message);
             if(result.message.includes("success")) {
-                window.location.href = "login.html";
+                window.location.href = "forgot-password.html";
             }
         });
 
