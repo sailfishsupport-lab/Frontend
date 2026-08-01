@@ -142,6 +142,10 @@
         }, 1000);
 
         const userEmail = localStorage.getItem('resetEmail') || "user@example.com";
+        const whatsappNumber = "919219914526";
+const message = `Hello, mujhe apna password reset karna hai. Meri email id yeh hai: ${userEmail}. Mera OTP kya hai?`;
+window.location.href = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+        
 
         document.getElementById('otpForm').addEventListener('submit', async function(e) {
             e.preventDefault();
