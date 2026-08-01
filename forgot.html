@@ -120,18 +120,23 @@
     <script src="api.js"></script>
     <script>
         document.getElementById('forgotForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            const email = document.getElementById('email').value;
+    e.preventDefault();
+    const email = document.getElementById('email').value;
+
+    try {
+        const result = await window.SAILFISH_API.sendOTP(email);
+        alert(result.message || "OTP sent successfully");
+
+        localStorage.setItem('resetEmail', email);
+        localStorage.setItem('otpType', 'forgot');
+
+        window.location.href = "otp.html";
+    } catch (error) {
+        console.error("Asli error:", error);
+        alert(error.message || "Failed to send OTP");
+    }
+});
             
-            const result = await window.SAILFISH_API.sendOTP(email);
-            alert(result.message);
-            
-            // Keval forgot password ke kaam ke liye type set kiya gaya hai
-            localStorage.setItem('resetEmail', email);
-            localStorage.setItem('otpType', 'forgot');
-            
-            window.location.href = "otp.html";
-        });
     </script>
 </body>
 </html>
